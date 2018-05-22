@@ -1,0 +1,26 @@
+##declaration
+    var x = energy (50,0,50)
+    var y = energy (20,180,25)
+    var z = energy(15,90,75)
+    var k = energy(6,30,30)
+    var q = energy(10,60,60)
+
+##endDeclaration
+
+
+##loop
+
+  x.addStroke('ciaone')
+  x.addR(34)
+  y.addStroke(56)
+  y.addStroke('ciaociao')
+
+##endLoop
+
+
+##event
+
+  in: keyPress('c')
+  out: keyPress('d')
+
+##endEvent

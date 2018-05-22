@@ -1,0 +1,7 @@
+[
+  {
+    "type":"energy",
+    "Nparams":3,
+    "paramsType":["number","number","number"]    
+  }
+]
