@@ -2,6 +2,7 @@ var pgPosition = {'x':0,'y':0}
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { create: create, update: update })
 var pg
+var pile = []
 
 document.addEventListener('keydown', (event) => {
   console.log(event.key)
@@ -17,23 +18,53 @@ function update(){
   pgMovement(pg,4)
   pgPosition.x = pg.world.x
   pgPosition.y = pg.world.y
+  loop()
 }
 
 function addInGameVar(){
   list.forEach((el)=>{
     el[Object.keys(el)[0]].push({'inGame':false})
+    el[Object.keys(el)[0]].push({'spriteIndex':-1,'counter':-1})
+
+  })
+}
+
+
+function loop(){
+  list.forEach((el)=>{
+    if(el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-2].inGame){
+
+       gameDet = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1]
+       if(gameDet.counter==-1){
+         console.log(pile[gameDet.spriteIndex])
+         game.add.existing(pile[gameDet.spriteIndex])
+         el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].counter++
+
+       }else{
+         if(gameDet.counter>el[Object.keys(el)[0]].length-5){
+           el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].counter = 0
+         }
+
+         console.log( el[Object.keys(el)[0]][gameDet.counter+1]  )         //TODO stampa i metodi corretti! adesso bisogna implementarli
+         el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].counter++
+       }
+
+    }
   })
 }
 
 function checkKey(key){
   list.forEach((el)=>{
-    evIn = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-2].eventIn
-    evOut = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-2].eventOut
-    inGame = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].inGame
+    evIn = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-3].eventIn
+    evOut = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-3].eventOut
+    inGame = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-2].inGame
     if(evIn.key == key && inGame == false ){
-      el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].inGame = true
+      el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-2].inGame = true
       params = el[Object.keys(el)[0]][0].params
       s = createArc(params[0],params[1],params[2])
+      pile.push(s)
+      evIn = el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].spriteIndex = pile.length-1
+
     }
     if(evOut.key == key && inGame){
       el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].inGame = false
@@ -76,7 +107,7 @@ function createArc(r,a,s){
 
   graphics.arc(0, 0, radius, 0, dimension, false)
 
-  sprite = game.add.sprite(pgPosition.x, pgPosition.y, graphics.generateTexture())
+  sprite = game.make.sprite(pgPosition.x, pgPosition.y, graphics.generateTexture())
   sprite.anchor.set(0.5)
 
   //posizionamento ad angle = 0
