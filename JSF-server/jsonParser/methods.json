@@ -1,11 +1,14 @@
 [
   {
-    "name":"addStroke"
+    "name":"addStroke",
+    "paramsType" : ["number"]
   },
   {
-    "name":"addR"
+    "name":"addR",
+    "paramsType" : ["number"]
   },
   {
-    "name":"addSize"
+    "name":"addSize",
+    "paramsType" : ["number"]
   }
 ]

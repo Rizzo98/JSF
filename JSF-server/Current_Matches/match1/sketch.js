@@ -1,3 +1,31 @@
+var methodsFunction = { 
+addR:(sprite,params)=>{
+    console.log('metodo addR  ||  ' + sprite + '  ||  ' + params)
+  },
+addSize:(sprite,params)=>{
+    console.log('metodo addSize')
+  },
+addStroke:(sprite,params)=>{
+    console.log('metodo addStroke')
+    sprite.x +=10
+  },
+}
+var methods = [
+  {
+    "name":"addStroke",
+    "paramsType" : ["number"]
+  },
+  {
+    "name":"addR",
+    "paramsType" : ["number"]
+  },
+  {
+    "name":"addSize",
+    "paramsType" : ["number"]
+  }
+]
+
+var list = [{"x":[{"params":[20,0,30],"type":"energy"},{"method":"addStroke","params":"ciaone"},{"method":"addR","params":34},{"eventIn":{"type":"keyPress","key":"c"},"eventOut":{"type":"keyPress","key":"d"}}]}]
 var pgPosition = {'x':0,'y':0}
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { create: create, update: update })

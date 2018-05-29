@@ -41,20 +41,48 @@ function createMatch(matchName,userData,callback){
     fs.mkdirSync('./Current_Matches/'+matchName)
 
 
-  s = 'var list = ' + JSON.stringify(userData.data) + '\n' + s
-  fs.writeFile('./Current_Matches/'+matchName+'/sketch.js',s,(err)=>{
-    if (err) throw err;
+  p = new Promise((resolve,reject)=>{
+    var m = require('./jsonParser/methods')
+    resolve(m)
+  })
 
-    fs.writeFile('./Current_Matches/'+matchName+'/page.html',f,(err)=>{
-      if (err) throw err;
+  .then((m)=>{
+    s = 'var list = ' + JSON.stringify(userData.data) + '\n' + s
+    s = 'var methods = ' + fs.readFileSync('./jsonParser/methods.json', 'utf8') + '\n' +  s
 
-      callback( app.get('/'+matchName, function(req, res){
-        res.sendFile(__dirname+'/Current_Matches/'+matchName+'/page.html')
-      }) )
-
+    k = new Promise((resolve,reject)=>{
+      mS = '{ \n'
+      Object.keys(m).forEach((key)=>{
+        mS += key + ":" + m[key].toString()+ ',\n'
+      })
+      mS+='}'
+      resolve(mS)
+    })
+    .then((mS)=>{
+      s = 'var methodsFunction = ' + mS + '\n' + s
     })
 
   })
+
+  .then(()=>{
+
+    fs.writeFile('./Current_Matches/'+matchName+'/sketch.js',s,(err)=>{
+      if (err) throw err;
+
+      fs.writeFile('./Current_Matches/'+matchName+'/page.html',f,(err)=>{
+        if (err) throw err;
+
+        callback( app.get('/'+matchName, function(req, res){
+          res.sendFile(__dirname+'/Current_Matches/'+matchName+'/page.html')
+        }) )
+
+      })
+
+    })
+
+
+  })
+
 
 }
 
