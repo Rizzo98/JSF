@@ -45,12 +45,32 @@ function loop(){
            el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].counter = 0
          }
 
-         console.log( el[Object.keys(el)[0]][gameDet.counter+1]  )         //TODO stampa i metodi corretti! adesso bisogna implementarli
+         method = el[Object.keys(el)[0]][gameDet.counter+1]
+         console.log(method)
+         console.log(checkMethods(method))
          el[Object.keys(el)[0]][(el[Object.keys(el)[0]].length)-1].counter++
        }
 
     }
   })
+}
+
+
+function checkMethods(m){ //TODO m.params contiene i parametri del metodo -> implementare funzionamento del metodo
+  switch (m.method) {
+    case 'addStroke':
+      return 'addStroke'
+      break;
+    case 'addR':
+      return 'addR'
+      break;
+    case 'addSize':
+      return 'addSize'
+      break;
+
+    default: return null
+
+  }
 }
 
 function checkKey(key){
