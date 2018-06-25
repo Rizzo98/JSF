@@ -1,0 +1,9 @@
+exports.phaser = require('phaser')
+exports.Collider = require("./Collider.js");
+exports.CreateFigure = require("./CreateFigure.js");
+exports.Game = require("./Game.js");
+exports.Maker = require("./Maker.js");
+exports.Map = require("./Map.js");
+exports.Match = require("./Match.js");
+exports.Shield = require("./Shield.js");
+exports.Player = require("./Player.js");
