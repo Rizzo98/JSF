@@ -9,7 +9,11 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io.connect('http://localhost:8080');
-  socket.emit('New_Match',{})
+  socket.emit('New_Match_request',{})
+
+  socket.on('New_Match_response',(id)=>{
+    window.location.pathname = '/match/'+id+'/1234'
+  })
 
 </script>
 

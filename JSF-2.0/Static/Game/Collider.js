@@ -50,5 +50,3 @@ class Collider{
   }
 
 }
-
-module.exports = Collider

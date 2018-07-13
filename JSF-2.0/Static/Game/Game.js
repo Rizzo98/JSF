@@ -34,5 +34,3 @@ class Game extends Phaser.Game{
   }
 
 }
-
-module.exports = Game

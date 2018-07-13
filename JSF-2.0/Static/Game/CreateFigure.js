@@ -44,5 +44,3 @@ class CreateFigure{
 	}
 
 }
-
-module.exports = CreateFigure

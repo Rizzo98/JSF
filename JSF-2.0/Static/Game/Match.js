@@ -10,6 +10,7 @@ class Match{
   }
 
   preload(){
+    console.log(this.game)
     var m = new Map(game)
     m.preload()
   }
@@ -31,4 +32,3 @@ class Match{
   }
 
 }
-module.exports = Match

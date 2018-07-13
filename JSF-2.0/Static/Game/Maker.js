@@ -73,5 +73,3 @@ class Maker{
   }
 
 }
-
-module.exports = Maker

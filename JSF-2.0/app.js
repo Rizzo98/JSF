@@ -1,12 +1,23 @@
-const app = require('express')();
-const server = require('http').Server(app);
+const express = require('express')
+const app = express();
+const server = app.listen(8080)
 const io = require('socket.io')(server);
 const path = require("path");
-var r = require('./Scripts/Game');
-const socket = require(path.join(__dirname+'/Scripts/SocketIO.js'))(io,r)
+const match = require('./Scripts/ServerMatch.js');
+const socket = require(path.join(__dirname+'/Scripts/SocketIO.js'))(io,match)
 
-console.log(r)
+app.use('/static', express.static(__dirname + '/Static'));
+
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/Pages/New_Match.html')))
 
-server.listen(8080);
+app.get('/match/:id/:playerId',(req, res)=>{
+  id = req.params.id
+  playerId = req.params.playerId
+
+  //TODO check se esiste il match a questo id
+
+  res.sendFile(path.join(__dirname+'/Pages/Match_Instance.html'))
+})
+
+//server.listen(8080);
