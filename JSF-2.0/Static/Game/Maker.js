@@ -7,8 +7,7 @@ class Maker{
 
   update(){
     this.enable_obj()
-
-    list.forEach((el)=>{
+    this.list.forEach((el)=>{
       if(el.enabled){
 
         if(el.counter == undefined){ //primo giro -> istanza
@@ -16,7 +15,6 @@ class Maker{
           el.obj = new Shield({'x':300,'y':200},el.params[0],el.params[1],el.params[2],el.params[3],this.game)
         }
         else{ //oggetto instanziato -> call dei metodi
-          //TODO
           this.exec_method(el.obj,el.methods[el.counter].method)
           //console.log(el.counter + ' | ' + el.methods[el.counter].method)
           el.counter ++
@@ -46,7 +44,7 @@ class Maker{
   enable_obj(){
     this.key_listener((k)=>{
 
-      list.forEach((el)=>{
+      this.list.forEach((el)=>{
           if(el.events.eventIn.key == k){
             el.enabled = true
           }

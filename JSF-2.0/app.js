@@ -19,5 +19,3 @@ app.get('/match/:id/:playerId',(req, res)=>{
 
   res.sendFile(path.join(__dirname+'/Pages/Match_Instance.html'))
 })
-
-//server.listen(8080);
