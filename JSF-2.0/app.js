@@ -1,10 +1,12 @@
 const express = require('express')
-const app = express();
+const app = express()
 const server = app.listen(8080)
-const io = require('socket.io')(server);
-const path = require("path");
-const match = require('./Scripts/ServerMatch.js');
+const io = require('socket.io')(server)
+const path = require("path")
+const match = require('./Scripts/ServerMatch.js')
 const socket = require(path.join(__dirname+'/Scripts/SocketIO.js'))(io,match)
+const sql = require('node-sql-db')
+const DB_connector = require('./Scripts/DB_connector.js')(sql)
 
 app.use('/static', express.static(__dirname + '/Static'));
 
