@@ -1,5 +1,4 @@
 module.exports = function(sql){
-  //TODO create db
   var db = new sql.Db({
     platform: "SQLite",
     file: "./Database/db.db",
@@ -10,8 +9,10 @@ module.exports = function(sql){
               "create table if not exists User (id integer primary key autoincrement, usr text not null, mail text not null, pwd text not null)",
               "create table if not exists Combat_file (id integer primary key autoincrement, usr_id integer, txt text not null, parsed_txt text not null, foreign key(usr_id) references User(id))",
               "create table if not exists Match_type (id integer primary key autoincrement, name text not null, n_usr integer not null)",
-              "create table if not exists Current_match (id integer primary key autoincrement, date DATE DEFAULT (datetime('now','localtime')), state text default('searching'), type integer not null, missing_users integer not null,foreign key(type) references Match_type(id))",
-              "create trigger change_missing_users after insert on Current_match begin  = (select name from Match_type where id = new.type limit 1)" //TODO finire trigger
+              "create table if not exists Current_match (id integer primary key autoincrement, date DATE DEFAULT (datetime('now','localtime')), state text default('searching'), type integer not null, missing_users integer,foreign key(type) references Match_type(id))",
+              "CREATE TRIGGER if not exists change_missing_users AFTER INSERT on Current_match BEGIN UPDATE Current_match SET missing_users = (select n_usr from Match_type where new.type = Match_type.id)-1 WHERE Current_match.id = new.id;END;",
+              "create table if not exists User_Pool(id integer primary key autoincrement, usr_id integer not null, type integer not null,time DATE DEFAULT (datetime('now','localtime')) ,foreign key(usr_id) references User(id),foreign key(type) references Match_type(id))",
+              "create table if not exists User_in_match(id integer primary key autoincrement, usr_id integer not null, current_match_id integer not null, combat_file_id integer not null, foreign key(usr_id) references User(id),foreign key(current_match_id) references Current_match(id),foreign key(combat_file_id) references Combat_file(id))"
              ]
       }]
   });
