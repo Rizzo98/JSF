@@ -1,12 +1,11 @@
-module.exports = function(io,match){
+module.exports = function(io,match,DB_connector){
   io.on('connection', (socket)=>{
     console.log('a user connected');
 
-    socket.on('New_Match_request', (text)=>{
-
-      m = new match() //passare a ServerMatch text -> dentro ServerMatch parsare il text -> ritornare il testo parsato qui
+    socket.on('New_Match_request', (params)=>{
+      m = new match()
+      DB_connector.create_match(m.get_id(),params.type)
       socket.emit('New_Match_response',m.get_id())
-      //TODO salvare il match da qualche parte in modo pubblico
     });
 
   });
