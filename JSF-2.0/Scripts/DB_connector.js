@@ -25,6 +25,15 @@ module.exports = {
 
   create_match : function(id,type){
     d.execute('insert into Current_match("id","date","type") values("'+id+'",datetime("now"),'+type+')')
+  },
+
+  get_user : function(usr,callback){
+    d.query('select * from User where usr = "' + usr + '"',(err,rows)=>{
+      if(!err)
+        callback(rows)
+      else
+        callback(err)
+    })
   }
 
 
