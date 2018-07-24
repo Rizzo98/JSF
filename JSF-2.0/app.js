@@ -21,9 +21,11 @@ app.use('/static', express.static(__dirname + '/Static'));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Login.html')))
 
-app.get('/register', (req, res) => {
-  res.sendFile(path.join(__dirname+'/Pages/Register.html'))
-})
+app.get('/loadCombatFile',(req, res) => res.sendFile(path.join(__dirname+'/Pages/Combat_File.html')))
+
+app.get('/register', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Register.html')))
+
+
 
 app.post('/registered', (req, res) => {
   bcrypt.hash(req.body.pwd, 10, function(err, hash) {
@@ -31,6 +33,10 @@ app.post('/registered', (req, res) => {
     DB_connector.register_user(req.body.usr,hash,req.body.mail)
   })
 
+})
+
+app.post('/combatFile',(req, res)=>{
+   console.log(req.body)
 })
 
 app.post('/login',(req,res)=>{
@@ -42,7 +48,8 @@ app.post('/login',(req,res)=>{
       plain_text = req.body.pwd
       bcrypt.compare(plain_text, hashed, (err, res)=> {
         if(res){
-          //login
+          console.log('logged')
+
         }
       })
     }
