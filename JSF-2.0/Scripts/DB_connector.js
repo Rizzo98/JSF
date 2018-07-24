@@ -34,6 +34,10 @@ module.exports = {
       else
         callback(err)
     })
+  },
+
+  register_user : function(usr,hashed,mail){
+    d.execute('insert into "User"(usr,mail,pwd) values("'+usr+'","'+mail+'","'+hashed+'") ')
   }
 
 

@@ -21,9 +21,22 @@ app.use('/static', express.static(__dirname + '/Static'));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Login.html')))
 
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname+'/Pages/Register.html'))
+})
+
+app.post('/registered', (req, res) => {
+  bcrypt.hash(req.body.pwd, 10, function(err, hash) {
+
+    DB_connector.register_user(req.body.usr,hash,req.body.mail)
+  })
+
+})
+
 app.post('/login',(req,res)=>{
   DB_connector.get_user(req.body.usr,(usr)=>{
-    if(usr.lenght>0){
+
+    if(usr.length>0){
 
       hashed = usr[0].pwd
       plain_text = req.body.pwd
