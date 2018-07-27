@@ -7,6 +7,7 @@ class Maker{
 
   update(){
     this.enable_obj()
+    
     this.list.forEach((el)=>{
       if(el.enabled){
 

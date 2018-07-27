@@ -1,6 +1,6 @@
 class CreateFigure{
 
-	 static getArc(startCoord,radius,startAngle,ampitude){
+	 static getArc(startCoord,radius,startAngle,ampitude,game){
 		var V = SAT.Vector
 		var P = SAT.Polygon
 		var density = 20

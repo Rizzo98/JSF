@@ -1,12 +1,12 @@
 class Shield{
-  constructor(startCoord,radius,startAngle,ampitude,gameInstance){
-    var obj = CreateFigure.getArc(startCoord,radius,startAngle,ampitude)
+  constructor(startCoord,radius,startAngle,ampitude,z,gameInstance){
+    var obj = CreateFigure.getArc(startCoord,radius,startAngle,ampitude,gameInstance)
     this.polygon = obj.polygon
     this.graphic = obj.graphic
     this.game = gameInstance
     this.velocity = 3
     this.strength = (ampitude+radius)
-    this.id = game.addObject(this)
+    this.id = gameInstance.addObject(this)
     console.log(this.id +' | ' + this.strength)
   }
 
@@ -68,7 +68,7 @@ class Shield{
 
   destroy(){
     this.graphic.destroy()
-    game.removeObject(this.id)
+    this.game.removeObject(this.id)
   }
 
   get_strength(){

@@ -1,6 +1,10 @@
 class Match{
 
   constructor(SAT){
+    this.list = [
+      {'name':'x',"params":[30,0,10],"type":"Shield",'methods':[{"method":"rotate","params":"CLOCKWISE"}],'events':{"eventIn":{"type":"keyPress","key":"c"},"eventOut":{"type":"keyPress","key":"d"}}},
+      {'name':'y',"params":[150,120,230],"type":"Shield",'methods':[{"method":"rotate","params":"COUNTERCLOCKWISE"}],'events':{"eventIn":{"type":"keyPress","key":"c"},"eventOut":{"type":"keyPress","key":"d"}}}
+    ]
 
     this.game = new Game(SAT,800, 600, Phaser.CANVAS, 'phaser')
     this.game.state.add('default',{
@@ -10,10 +14,8 @@ class Match{
       render : this.render
     },true)
 
-    this.list = [
-      {'name':'x',"params":[30,0,10],"type":"Shield",'methods':[{"method":"rotate","params":"CLOCKWISE"}],'events':{"eventIn":{"type":"keyPress","key":"c"},"eventOut":{"type":"keyPress","key":"d"}}},
-      {'name':'y',"params":[150,120,230],"type":"Shield",'methods':[{"method":"rotate","params":"COUNTERCLOCKWISE"}],'events':{"eventIn":{"type":"keyPress","key":"c"},"eventOut":{"type":"keyPress","key":"d"}}}
-    ]
+    this.game.customList = this.list
+
   }
 
   preload(){
@@ -23,14 +25,14 @@ class Match{
 
   create(){
     this.game.time.advancedTiming = true
-    //this.coll = new Collider(this.game)
-    //this.mak = new Maker(this.list,this.game)
+    this.coll = new Collider(this.game)
+    this.mak = new Maker(this.game.customList,this.game)
   }
 
 
   update(){
-    //this.coll.update()
-    //this.mak.update()
+    this.coll.update()
+    this.mak.update()
   }
 
   render(){
