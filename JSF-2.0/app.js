@@ -43,6 +43,11 @@ app.post('/registered', (req, res) => {
 })
 
 app.post('/combatFile',(req, res)=>{
+  fileName  = req.body.name
+  fileText = req.body.text
+  user_id = req.session.user[0].id
+
+  DB_connector.add_combatFile(fileName,user_id,fileText,'parsed')
 
 })
 
