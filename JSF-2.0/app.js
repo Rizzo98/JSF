@@ -11,10 +11,11 @@ const socket = require(path.join(__dirname+'/Scripts/SocketIO.js'))(io,match,DB_
 const bodyParser = require('body-parser')
 const bcrypt = require('bcrypt');
 const session = require('express-session')
+const nearley = require("nearley")
+const grammar = require('./Scripts/gr.js')
 var parser = require('./Scripts/Parser.js')
 
-
-parser = new parser(fs)
+parser = new parser(fs,nearley,grammar)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
@@ -49,14 +50,14 @@ app.post('/combatFile',(req, res)=>{
   fileName  = req.body.name
   fileText = req.body.text
   user_id = req.session.user[0].id
+  parsed = parser.parse(fileText)
+  DB_connector.add_combatFile(fileName,user_id,fileText,parsed)
 
-  DB_connector.add_combatFile(fileName,user_id,fileText,'parsed')
 
 })
 
 app.post('/login',(req,res)=>{
   DB_connector.get_user(req.body.usr,(usr)=>{
-    parser.parse()
     if(usr.length>0){
 
       hashed = usr[0].pwd
