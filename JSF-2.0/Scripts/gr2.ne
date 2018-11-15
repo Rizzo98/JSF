@@ -1,6 +1,7 @@
-function -> _funDeclaration _decl _varList E _ ":declaration>" E _loop _loopInstanceList E _ ":loop>" E _event _eventInstanceList E _ ":event>" E _ ":fun>"  {% function(d) {return  {'funName':d[0],'vars':d[2],'loop':d[8],'events':d[14]}} %}
+functionList -> function:+ {% function(d){return d} %}
+function -> _funDeclaration _decl _varList E _ ":declaration>" E _loop _loopInstanceList E _ ":loop>" E _event _eventInstanceList E _ ":event>" E _ ":fun>" e {% function(d) {return  {'funName':d[0],'vars':d[2],'loop':d[8],'events':d[14]}} %}
 
-_funDeclaration -> "<fun" __  _name _ ":" E {% function(d){return d[2]} %} 
+_funDeclaration -> "<fun" __  _name _ ":" E {% function(d){return d[2]} %}
 
 _decl -> _ "<declaration" _ ":" E {% function(){} %}
 _loop -> _ "<loop" _ ":" E {% function(){} %}

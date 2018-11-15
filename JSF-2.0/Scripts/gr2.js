@@ -5,11 +5,14 @@ function id(x) { return x[0]; }
 var grammar = {
     Lexer: undefined,
     ParserRules: [
+    {"name": "functionList$ebnf$1", "symbols": ["function"]},
+    {"name": "functionList$ebnf$1", "symbols": ["functionList$ebnf$1", "function"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "functionList", "symbols": ["functionList$ebnf$1"], "postprocess": function(d){return d}},
     {"name": "function$string$1", "symbols": [{"literal":":"}, {"literal":"d"}, {"literal":"e"}, {"literal":"c"}, {"literal":"l"}, {"literal":"a"}, {"literal":"r"}, {"literal":"a"}, {"literal":"t"}, {"literal":"i"}, {"literal":"o"}, {"literal":"n"}, {"literal":">"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "function$string$2", "symbols": [{"literal":":"}, {"literal":"l"}, {"literal":"o"}, {"literal":"o"}, {"literal":"p"}, {"literal":">"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "function$string$3", "symbols": [{"literal":":"}, {"literal":"e"}, {"literal":"v"}, {"literal":"e"}, {"literal":"n"}, {"literal":"t"}, {"literal":">"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "function$string$4", "symbols": [{"literal":":"}, {"literal":"f"}, {"literal":"u"}, {"literal":"n"}, {"literal":">"}], "postprocess": function joiner(d) {return d.join('');}},
-    {"name": "function", "symbols": ["_funDeclaration", "_decl", "_varList", "E", "_", "function$string$1", "E", "_loop", "_loopInstanceList", "E", "_", "function$string$2", "E", "_event", "_eventInstanceList", "E", "_", "function$string$3", "E", "_", "function$string$4"], "postprocess": function(d) {return  {'funName':d[0],'vars':d[2],'loop':d[8],'events':d[14]}}},
+    {"name": "function", "symbols": ["_funDeclaration", "_decl", "_varList", "E", "_", "function$string$1", "E", "_loop", "_loopInstanceList", "E", "_", "function$string$2", "E", "_event", "_eventInstanceList", "E", "_", "function$string$3", "E", "_", "function$string$4", "e"], "postprocess": function(d) {return  {'funName':d[0],'vars':d[2],'loop':d[8],'events':d[14]}}},
     {"name": "_funDeclaration$string$1", "symbols": [{"literal":"<"}, {"literal":"f"}, {"literal":"u"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
     {"name": "_funDeclaration", "symbols": ["_funDeclaration$string$1", "__", "_name", "_", {"literal":":"}, "E"], "postprocess": function(d){return d[2]}},
     {"name": "_decl$string$1", "symbols": [{"literal":"<"}, {"literal":"d"}, {"literal":"e"}, {"literal":"c"}, {"literal":"l"}, {"literal":"a"}, {"literal":"r"}, {"literal":"a"}, {"literal":"t"}, {"literal":"i"}, {"literal":"o"}, {"literal":"n"}], "postprocess": function joiner(d) {return d.join('');}},
@@ -79,7 +82,7 @@ var grammar = {
     {"name": "__", "symbols": [/[\s]/]},
     {"name": "__", "symbols": ["__", /[\s]/], "postprocess": function() {}}
 ]
-  , ParserStart: "function"
+  , ParserStart: "functionList"
 }
 if (typeof module !== 'undefined'&& typeof module.exports !== 'undefined') {
    module.exports = grammar;
