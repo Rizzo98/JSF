@@ -1,14 +1,25 @@
-function -> _funDeclaration _decl _varList  {% function(d) {return {'funName':d[0],'vars':d[2]} } %}
+#function -> _funDeclaration _decl _varList  {% function(d) {return {'funName':d[0],'vars':d[2]} } %}
 
-_funDeclaration -> "fun" __  _name _ ":" E {% function(d){return d[2]} %}
-_decl -> _ "declaration" _ ":" E {% function(){} %}
+#_funDeclaration -> "fun" __  _name _ ":" E {% function(d){return d[2]} %}
+#_decl -> _ "declaration" _ ":" E {% function(){} %}
 
 # Primitives
 # ==========
 
 _varList -> _var:+ {% ([items])=>(items) %}
 
-_var -> _ "set" _ _name _ "as" _ _name _ "()" e {% function(d){return {'varName' : d[3], 'type' : d[7] } } %}
+_var -> _ "set" _ _name _ "as" _ _name _ "(" _  _paramList  _ ")" e {% function(d){return  {'varName' : d[3], 'type' : d[7], 'params':d[11] } } %}
+
+
+_paramList -> _CommaParam:+ _param {% function(d){var l =[]; for (i=0; i<d[0].length;i++){l.push(d[0][i])};l.push(d[1]);return l; } %}
+            | _param
+
+_param -> _ _number _ {% function(d){return parseFloat(d[1]) } %}
+        | _ _name _  {% function(d){return d[1] } %}
+
+_CommaParam ->_ _number _ "," _ {% function(d){return parseFloat(d[1]) } %}
+				 |_ _name _ "," _ {% function(d){return d[1] } %}
+
 
 _name -> [a-zA-Z_] {% id %}
 	| _name [\w_] {% function(d) {return d[0] + d[1]; } %}
@@ -45,6 +56,7 @@ _string ->
 _stringchar ->
 	[^\\"] {% id %}
 	| "\\" [^] {% function(d) {return JSON.parse("\"" + d[0] + d[1] + "\""); } %}
+
 
 # Enter
 e -> null | e [\r] | e [\n] {% function() {} %}
