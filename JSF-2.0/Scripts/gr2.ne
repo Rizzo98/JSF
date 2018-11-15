@@ -1,13 +1,19 @@
-#function -> _funDeclaration _decl _varList  {% function(d) {return {'funName':d[0],'vars':d[2]} } %}
+function -> _funDeclaration _decl _varList E _ ":declaration>" E _loop _loopInstanceList E _ ":loop>" E _event _eventInstanceList E _ ":event>" E _ ":fun>"  {% function(d) {return  {'funName':d[0],'vars':d[2],'loop':d[8],'events':d[14]}} %}
 
-#_funDeclaration -> "fun" __  _name _ ":" E {% function(d){return d[2]} %}
-#_decl -> _ "declaration" _ ":" E {% function(){} %}
+_funDeclaration -> "<fun" __  _name _ ":" E {% function(d){return d[2]} %} 
 
-# Primitives
-# ==========
+_decl -> _ "<declaration" _ ":" E {% function(){} %}
+_loop -> _ "<loop" _ ":" E {% function(){} %}
+_event -> _ "<event" _ ":" E {% function(){} %}
+
+_eventInstanceList ->_eventInstance:+ {% ([items])=>(items) %}
+_eventInstance -> "keyPress" _ "(" _ _number _ ")" e {% function(d){return {'type':'keyPress','key':parseFloat(d[4])}} %}
+                | "player." _name _ _operator _ _number e {% function(d){return {'type':'condition','param':d[1],'operator':d[3],'value':parseFloat(d[5])} } %}
+
+_loopInstanceList ->_loopInstance:+ {% ([items])=>(items) %}
+_loopInstance -> _ _name _ "."  _name _ "(" _  _paramList  _ ")" e {% function(d){return {'var':d[1],'method':d[4],'params':d[8],'paramsNumber':d[8].length} } %}
 
 _varList -> _var:+ {% ([items])=>(items) %}
-
 _var -> _ "set" _ _name _ "as" _ _name _ "(" _  _paramList  _ ")" e {% function(d){return  {'varName' : d[3], 'type' : d[7], 'params':d[11] } } %}
 
 
@@ -57,6 +63,12 @@ _stringchar ->
 	[^\\"] {% id %}
 	| "\\" [^] {% function(d) {return JSON.parse("\"" + d[0] + d[1] + "\""); } %}
 
+_operator -> "=" {% id %}
+            | "!=" {% id %}
+            | ">" {% id %}
+            | "<" {% id %}
+            | "=>" {% id %}
+            | "=<" {% id %}
 
 # Enter
 e -> null | e [\r] | e [\n] {% function() {} %}
