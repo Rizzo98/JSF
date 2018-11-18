@@ -1,0 +1,12 @@
+<fun Prova:
+<declaration:
+set x as shield(1,4,5)
+set y as shield(33)
+:declaration>
+<loop:
+x.s(3)
+:loop>
+<event:
+keyPress(6)
+:event>
+:fun>

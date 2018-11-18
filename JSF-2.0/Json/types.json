@@ -1,7 +1,12 @@
 [
   {
-    "type":"energy",
+    "type":"shield",
     "Nparams":3,
-    "paramsType":["number","number","number"]    
+    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}]
+  },
+  {
+    "type":"prova",
+    "Nparams":3,
+    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}]
   }
 ]

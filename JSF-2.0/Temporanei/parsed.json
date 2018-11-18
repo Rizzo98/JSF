@@ -1,0 +1,12 @@
+[
+  [
+    {"funName":"Prova",
+      "vars": [
+        {"varName":"x","type":"shield","params":[1,4,5]},
+        {"varName":"y","type":"energy","params":[33]}
+      ],
+      "loop": [{"var":"x","method":"s","params":[3],"paramsNumber":1}],
+      "events": [{"type":"keyPress","key":6}]
+      }
+    ]
+]
