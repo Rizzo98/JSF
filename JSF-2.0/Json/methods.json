@@ -1,14 +1,14 @@
 [
   {
     "name":"addStroke",
-    "paramsType" : ["number"]
+    "paramsType" : [{"type":"number","min":0,"max":360}]
   },
   {
     "name":"addR",
-    "paramsType" : ["number"]
+    "paramsType" : [{"type":"number","min":0,"max":360}]
   },
   {
     "name":"addSize",
-    "paramsType" : ["number"]
+    "paramsType" : [{"type":"number","min":0,"max":360}]
   }
 ]

@@ -1,7 +1,7 @@
 <fun Prova:
 <declaration:
 set x as shield(1,4,5)
-set y as shield(33)
+set y as shield(33,4,7)
 :declaration>
 <loop:
 x.s(3)

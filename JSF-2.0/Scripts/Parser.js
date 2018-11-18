@@ -15,12 +15,55 @@ class Parser{
 
     this.getTypes((typeList)=>{
 
-      this.checkVarType(typeList,fun.vars,()=>{
-        console.log('tutte le variabili sono del tipo giusto')
+      this.checkVarName(fun.vars,()=>{
+        console.log('tutte le variabili hanno nomi diversi')
+        this.checkVarType(typeList,fun.vars,()=>{
+          console.log('tutte le variabili sono del tipo giusto')
+          this.checkParamsNumber(typeList,fun.vars,()=>{
+            console.log('numero di parametri corretti')
+            this.checkParamType(typeList,fun.vars,()=>{
+              console.log('tipo di parametri corretti')
+            })
+          })
+        })
       })
 
     })
     return fun
+  }
+
+
+  checkParamType(typeList,varList,callback){
+    let b = true
+    varList.forEach((v)=>{
+      typeList.forEach((el)=>{
+        if(v.type==el.type){
+            for(let i=0;i<v.params.length;i++){
+              if(typeof v.params[i] != el.paramsType[i].type)
+                b=false
+            }
+        }
+      })
+    })
+
+    if(b)
+      callback()
+
+  }
+
+  checkVarName(varList,callback){
+    let c=0
+    varList.forEach((v)=>{
+      let name = v.varName
+      for(let i=0;i<varList.length;i++){
+        if(name==varList[i].varName){
+          c++
+        }
+      }
+    })
+
+    if(c==varList.length)
+      callback()
   }
 
   checkVarType(typeList,varList,callback){
