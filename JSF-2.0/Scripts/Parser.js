@@ -27,6 +27,9 @@ class Parser{
                 console.log('nomi variabili in loop corretti')
                 this.checkLoopMethodsName(fun.vars,fun.loop,typeList,()=>{
                   console.log('nomi metodi in loop corretti')
+                  this.checkLoopMethodsParam(fun.vars,fun.loop,typeList,()=>{
+                    console.log('tipo e numero di parametri in loop corretti')
+                  })
                 })
               })
             })
@@ -43,13 +46,19 @@ class Parser{
 
     let methodsName = loopList.every((el)=>{
       let type = varNames.filter(i => Object.keys(i)[0]==el.var )[0][el.var]
-      let methods = typeList.filter(i => i.type == type)[0].methods
-      let methodsParams = methods.map(i => i.paramsType)
-      //TODO
-      let paramsType = el.params.every((i,index)=>{return typeof i == methodsParams[index].type})
+      let method = typeList.filter(i => i.type == type)[0].methods.filter(i => i.name == el.method)[0]
 
+      let isRightNumber = (el.paramsNumber==method.paramsType.length)
+      let isCorrectType = el.params.every((i,index)=>{return typeof i == method.paramsType[index].type})
 
+      if(isRightNumber && isCorrectType)
+        return true
+      else
+        return false
     })
+
+    if(methodsName)
+      callback()
   }
 
   checkLoopMethodsName(varList,loopList,typeList,callback){
