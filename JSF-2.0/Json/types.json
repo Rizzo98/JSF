@@ -2,11 +2,26 @@
   {
     "type":"shield",
     "Nparams":3,
-    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}]
+    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}],
+    "methods":[
+      {
+        "name":"addStroke",
+        "paramsType" : [{"type":"number","min":0,"max":360}]
+      },
+      {
+        "name":"addR",
+        "paramsType" : [{"type":"number","min":0,"max":360}]
+      },
+      {
+        "name":"addSize",
+        "paramsType" : [{"type":"number","min":0,"max":360}]
+      }
+    ]
   },
   {
     "type":"prova",
     "Nparams":3,
-    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}]
+    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}],
+    "methods":[]
   }
 ]
