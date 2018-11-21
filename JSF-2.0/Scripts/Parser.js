@@ -7,7 +7,7 @@ class Parser{
     this.dir = './Json'
   }
 
-  parse(text){
+  parse(text,callback){
     let parser = new this.nearley.Parser(this.nearley.Grammar.fromCompiled(this.g))
     parser.feed(text)
 
@@ -31,7 +31,7 @@ class Parser{
                     console.log('tipo e numero di parametri in loop corretti')
                     this.checkEvent(fun.events,()=>{
                       console.log('eventi corretti')
-                      return fun
+                      callback(fun)
                     })
                   })
                 })

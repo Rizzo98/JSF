@@ -41,7 +41,7 @@ module.exports = {
   },
 
   add_combatFile : function(name,usr_id,txt,parsed){
-    d.execute('insert into Combat_file(usr_id,name,txt,parsed_txt) values("'+usr_id+'","'+name+'","'+txt+'","'+parsed+'")')
+    d.execute('insert into Combat_file(usr_id,name,txt,parsed_txt) values("'+usr_id+'","'+name+'","'+txt+'",'+"'"+parsed+"'"+')')
   }
 
 

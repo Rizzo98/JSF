@@ -7,6 +7,6 @@ set y as shield(33,4,7)
 x.addStroke(3)
 :loop>
 <event:
-keyPress(6)
+keyPress(67)
 :event>
 :fun>

@@ -37,6 +37,7 @@ app.get('/loadCombatFile',(req, res) => res.sendFile(path.join(__dirname+'/Pages
 
 app.get('/register', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Register.html')))
 
+app.get('/home',(req,res)=> res.sendFile(path.join(__dirname+'/Pages/Home.html')))
 
 app.post('/registered', (req, res) => {
   bcrypt.hash(req.body.pwd, 10, function(err, hash) {
@@ -50,8 +51,9 @@ app.post('/combatFile',(req, res)=>{
   fileName  = req.body.name
   fileText = req.body.text
   user_id = req.session.user[0].id
-  parsed = parser.parse(fileText)
-  //DB_connector.add_combatFile(fileName,user_id,fileText,parsed)
+  parser.parse(fileText,(parsed)=>{
+    DB_connector.add_combatFile(fileName,user_id,fileText,JSON.stringify(parsed))
+  })
 })
 
 app.post('/login',(req,res)=>{
@@ -63,7 +65,7 @@ app.post('/login',(req,res)=>{
       bcrypt.compare(plain_text, hashed, (err, r)=> {
         if(r){
           req.session.user = usr
-          res.redirect('/loadCombatFile')
+          res.redirect('/home')
         }
       })
     }
