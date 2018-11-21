@@ -29,6 +29,10 @@ class Parser{
                   console.log('nomi metodi in loop corretti')
                   this.checkLoopMethodsParam(fun.vars,fun.loop,typeList,()=>{
                     console.log('tipo e numero di parametri in loop corretti')
+                    this.checkEvent(fun.events,()=>{
+                      console.log('eventi corretti')
+                      return fun
+                    })
                   })
                 })
               })
@@ -38,7 +42,44 @@ class Parser{
       })
 
     })
-    return fun
+
+  }
+
+  checkEvent(eventList,callback){
+    let p = new Promise((resolve,reject)=>{
+
+      let m = this.fs.readFile(this.dir+'/keys.json','utf8',(err,data1)=>{
+        if (!err){
+          let r = this.fs.readFile(this.dir+'/playerParams.json','utf8',(err,data2)=>{
+            if (!err){
+              resolve([JSON.parse(data1).map(i=>i.code),JSON.parse(data2).map(i=>i.name)])
+            }
+          })
+        }
+      })
+
+    })
+
+    .then((p)=>{
+
+      let eventOk = eventList.every((el)=>{
+                        if (el.type =='keyPress'){
+                          if (p[0].includes(el.key))
+                            return true
+                          else
+                            return false
+                        }else if(el.type == 'condition'){
+                          if (p[1].includes(el.param))
+                            return true
+                          else
+                            return false
+                        }
+                      })
+
+      if (eventOk)
+        callback()
+
+    })
   }
 
   checkLoopMethodsParam(varList,loopList,typeList,callback){
@@ -50,8 +91,15 @@ class Parser{
 
       let isRightNumber = (el.paramsNumber==method.paramsType.length)
       let isCorrectType = el.params.every((i,index)=>{return typeof i == method.paramsType[index].type})
+      let isInTheRange = el.params.every((i,index)=>{
+        if(typeof i =='number'){
+          return (i>=method.paramsType[index].min && i<=method.paramsType[index].max)
+        }else{
+          return true
+        }
+      })
 
-      if(isRightNumber && isCorrectType)
+      if(isRightNumber && isCorrectType && isInTheRange)
         return true
       else
         return false
@@ -88,6 +136,8 @@ class Parser{
         if(v.type==el.type){
             for(let i=0;i<v.params.length;i++){
               if(typeof v.params[i] != el.paramsType[i].type)
+                b=false
+              if(v.params[i]<el.paramsType[i].min || v.params[i]>el.paramsType[i].max)
                 b=false
             }
         }
