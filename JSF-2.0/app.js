@@ -29,7 +29,7 @@ app.use(session({
 DB_connector.createDB(sql)
 
 app.use('/static', express.static(__dirname + '/Static'));
-
+app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Login.html')))
 
@@ -37,7 +37,7 @@ app.get('/loadCombatFile',(req, res) => res.sendFile(path.join(__dirname+'/Pages
 
 app.get('/register', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Register.html')))
 
-app.get('/home',(req,res)=> res.sendFile(path.join(__dirname+'/Pages/Home.html')))
+app.get('/home',(req,res)=> res.render(path.join(__dirname+'/Pages/Home'),{name:req.session.user.usr,id:req.session.user.id}))
 
 app.post('/registered', (req, res) => {
   bcrypt.hash(req.body.pwd, 10, function(err, hash) {
@@ -64,7 +64,7 @@ app.post('/login',(req,res)=>{
       plain_text = req.body.pwd
       bcrypt.compare(plain_text, hashed, (err, r)=> {
         if(r){
-          req.session.user = usr
+          req.session.user = usr[0]
           res.redirect('/home')
         }
       })
