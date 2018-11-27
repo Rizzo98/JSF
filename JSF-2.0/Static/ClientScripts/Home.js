@@ -1,7 +1,7 @@
 $(document).ready(()=>{
 
   $('#newMatch').click(()=>{
-    console.log(usrId)
+    window.location.replace('/choose_cb')
   })
 
 

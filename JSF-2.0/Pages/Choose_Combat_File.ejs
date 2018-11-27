@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+
+        <h1>Choose Combat File</h1>
+        <br>
+        <div class="row">
+          <div class="col-sm-4">
+
+            <table class="table table-striped" id="cb_table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-sm-4">
+            <button type="button" class="btn btn-primary" id="confirm">Confirm</button>
+          </div>
+        </div>
+
+    </div>
+
+
+  <script> const usrId = <%= id %>  </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src ='/static/ClientScripts/Choose_Combat_File.js'></script>
+  </body>
+
+</html>

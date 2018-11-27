@@ -42,6 +42,15 @@ module.exports = {
 
   add_combatFile : function(name,usr_id,txt,parsed){
     d.execute('insert into Combat_file(usr_id,name,txt,parsed_txt) values("'+usr_id+'","'+name+'","'+txt+'",'+"'"+parsed+"'"+')')
+  },
+
+  get_combatFile : function(usr_id,callback){
+    d.query('select * from Combat_file where usr_id = ' + usr_id,(err,rows)=>{
+      if(!err)
+        callback(rows)
+      else
+        callback(err)
+    })
   }
 
 

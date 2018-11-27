@@ -8,6 +8,12 @@ module.exports = function(io,match,DB_connector){
       socket.emit('New_Match_response',m.get_id())
     });
 
+    socket.on('Choose_cb_request',(id)=>{
+      DB_connector.get_combatFile(id,(data)=>{
+        socket.emit('Choose_cb_response',data)
+      })
+    })
+
   });
 
 

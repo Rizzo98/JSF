@@ -39,6 +39,9 @@ app.get('/register', (req, res) => res.sendFile(path.join(__dirname+'/Pages/Regi
 
 app.get('/home',(req,res)=> res.render(path.join(__dirname+'/Pages/Home'),{name:req.session.user.usr,id:req.session.user.id}))
 
+
+app.get('/choose_cb',(req,res)=> res.render(path.join(__dirname+'/Pages/Choose_Combat_File'),{id:req.session.user.id}))
+
 app.post('/registered', (req, res) => {
   bcrypt.hash(req.body.pwd, 10, function(err, hash) {
 
@@ -50,7 +53,7 @@ app.post('/registered', (req, res) => {
 app.post('/combatFile',(req, res)=>{
   fileName  = req.body.name
   fileText = req.body.text
-  user_id = req.session.user[0].id
+  user_id = req.session.user.id
   parser.parse(fileText,(parsed)=>{
     DB_connector.add_combatFile(fileName,user_id,fileText,JSON.stringify(parsed))
   })
