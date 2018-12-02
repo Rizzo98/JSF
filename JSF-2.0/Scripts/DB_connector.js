@@ -24,7 +24,11 @@ module.exports = {
   },
 
   create_match : function(id,type){
-    d.execute('insert into Current_match("id","date","type") values("'+id+'",datetime("now"),'+type+')')
+    d.execute('insert into Current_match("id","date","type") values("'+id+'",datetime("now"),"'+type+'")')
+  },
+
+  add_user_in_match : function(usrId,matchId,cbId){
+    d.execute('insert into User_in_match("usr_id","current_match_id","combat_file_id") values("'+usrId+'","'+matchId+'","'+cbId+'")')
   },
 
   get_user : function(usr,callback){

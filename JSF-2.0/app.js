@@ -77,9 +77,11 @@ app.post('/login',(req,res)=>{
 
 })
 
-app.get('/match/:id/:playerId',(req, res)=>{
-  id = req.params.id
-  playerId = req.params.playerId
-
+app.post('/match/:id/',(req, res)=>{
+  matchId = req.params.id
+  usrId = req.session.user.id
+  cbList = req.body.cbL
+  console.log(typeof cbList)
+  DB_connector.add_user_in_match(usrId,matchId,cbList)
   res.sendFile(path.join(__dirname+'/Pages/Match_Instance.html'))
 })
