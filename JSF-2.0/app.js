@@ -13,9 +13,10 @@ const bcrypt = require('bcrypt');
 const session = require('express-session')
 const nearley = require("nearley")
 const grammar = require('./Scripts/gr2.js')
-var parser = require('./Scripts/Parser.js')
 
+var parser = require('./Scripts/Parser.js')
 parser = new parser(fs,nearley,grammar)
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(session({
@@ -81,7 +82,6 @@ app.post('/match/:id/',(req, res)=>{
   matchId = req.params.id
   usrId = req.session.user.id
   cbList = req.body.cbL
-  console.log(typeof cbList)
   DB_connector.add_user_in_match(usrId,matchId,cbList)
   res.sendFile(path.join(__dirname+'/Pages/Match_Instance.html'))
 })

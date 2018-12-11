@@ -14,6 +14,10 @@ module.exports = function(io,match,DB_connector){
       })
     })
 
+    socket.on('prova',(msg)=>{
+      socket.emit('prova2','ciao2')
+    })
+
   });
 
 

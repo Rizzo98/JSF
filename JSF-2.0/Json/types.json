@@ -1,27 +1,38 @@
 [
   {
     "type":"shield",
-    "Nparams":3,
-    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}],
+    "Nparams":5,
+    "paramsType":[{"type":"string"},{"type":"number","min":1,"max":100},{"type":"number","min":10,"max":100},{"type":"number","min":0,"max":360},{"type":"number","min":10,"max":360}],
     "methods":[
       {
-        "name":"addStroke",
-        "paramsType" : [{"type":"number","min":0,"max":360}]
+        "name":"addRadius",
+        "paramsType" : [{"type":"number","min":1,"max":20}]
       },
       {
-        "name":"addR",
-        "paramsType" : [{"type":"number","min":0,"max":360}]
-      },
-      {
-        "name":"addSize",
-        "paramsType" : [{"type":"number","min":0,"max":360}]
+        "name":"Rotate",
+        "paramsType" : [{"type":"number","min":1,"max":45}]
       }
     ]
   },
   {
-    "type":"prova",
-    "Nparams":3,
-    "paramsType":[{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360},{"type":"number","min":0,"max":360}],
+    "type":"bullet",
+    "Nparams":2,
+    "paramsType":[{"type":"string"},{"type":"number","min":1,"max":100}],
     "methods":[]
+  },
+  {
+    "type":"beam",
+    "Nparams":2,
+    "paramsType":[{"type":"string"},{"type":"number","min":1,"max":100},{"type":"number","min":1,"max":100}],
+    "methods":[
+      {
+        "name":"addStroke",
+        "paramsType" : [{"type":"number","min":1,"max":20}]
+      },
+      {
+        "name":"Rotate",
+        "paramsType" : [{"type":"number","min":1,"max":45}]
+      }
+    ]
   }
 ]

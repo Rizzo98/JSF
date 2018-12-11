@@ -1,9 +1,9 @@
 module.exports ={
-  addR : (sprite,params)=>{
-    console.log('metodo addR  ||  ' + sprite + '  ||  ' + params)
+  addRadius : (sprite,params)=>{
+    console.log('metodo addRadius  ||  ' + sprite + '  ||  ' + params)
   },
-  addSize : (sprite,params)=>{
-    console.log('metodo addSize')
+  Rotate : (sprite,params)=>{
+    console.log('metodo Rotate')
   },
   addStroke : (sprite,params)=>{
     console.log('metodo addStroke')
