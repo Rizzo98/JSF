@@ -83,5 +83,5 @@ app.post('/match/:id/',(req, res)=>{
   usrId = req.session.user.id
   cbList = req.body.cbL
   DB_connector.add_user_in_match(usrId,matchId,cbList)
-  res.sendFile(path.join(__dirname+'/Pages/Match_Instance.html'))
+  res.render(path.join(__dirname+'/Pages/Match_Instance'),{id:matchId})
 })

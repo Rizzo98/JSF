@@ -6,6 +6,7 @@
     <h1>Match instance</h1>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/phaser-ce/2.10.3/phaser.js'></script>
+    <script> const matchId = "<%= id %>"  </script>
     <script src="/socket.io/socket.io.js"></script>
     <script src ='/static/Game/ClientMatch.js'></script>
     <script src ='/static/Game/SAT.js'></script>
@@ -19,6 +20,7 @@
     <script src ='/static/Game/Shield.js'></script>
 
     <script>
+      c = new ClientMatch()
       m = new Match(SAT)
     </script>
   </body>
