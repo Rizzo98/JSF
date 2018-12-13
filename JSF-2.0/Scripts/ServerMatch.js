@@ -11,13 +11,18 @@ class ServerMatch{
     return this.id
   }
 
-  loadFunction(){
-    this.socket.to(this.id).emit('Prova', 'the game will start soon');
-    this.socket.on('Prova1',()=>console.log('ciao'))
+  welcome(){
+    this.socket.to(this.id).emit('Prova', 'the game will start soon')
+  }
 
+  updatePlayerList(){
+    this.socket.to(this.id).emit('updatePlayerList', this.playerList)
+  }
+
+  updateObjectList(){
+    this.socket.to(this.id).emit('updateObjectList', this.objectList)
   }
 
 }
-
 
 module.exports = ServerMatch

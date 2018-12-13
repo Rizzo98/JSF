@@ -3,6 +3,8 @@ class ClientMatch{
    this.socket = io.connect('http://localhost:8080');
    this.listen()
    this.emit('ClientMatchReady')
+   //this.emit(PlayerListChange,...)
+   //this.emit(ObjectListChange,...)
   }
 
   emit(route,msg){
@@ -10,8 +12,13 @@ class ClientMatch{
   }
 
   listen(){
-    this.socket.on('Prova',(msg)=>{
+    this.socket.on('updatePlayerList',(msg)=>{
       console.log(msg)
     })
+
+    this.socket.on('updateObjectList',(msg)=>{
+      console.log(msg)
+    })
+
   }
 }

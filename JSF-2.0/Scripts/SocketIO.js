@@ -19,7 +19,14 @@ module.exports = function(io,match,DB_connector){
     socket.on('ClientMatchReady',()=>{
       console.log('Client ready')
       socket.join(m.get_id())
-      m.loadFunction()
+      m.welcome()
+    })
+
+    socket.on('PlayerListChange',()=>{
+      m.updatePlayerList()
+    })
+    socket.on('ObjectListChange',()=>{
+      m.updateObjectList()
     })
 
   })
